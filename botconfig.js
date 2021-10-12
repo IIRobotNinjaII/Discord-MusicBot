@@ -19,13 +19,13 @@ module.exports = {
   Permissions: 2205281600, //Bot Inviting Permissions
   Website: process.env.Website || "http://localhost", //Website where it was hosted at includes http or https || Use "0.0.0.0" if you using Heroku
 
-  //Lavalink
   Lavalink: {
     id: "Main",
-    host: "host name or IP",
-    port: 80, // The port that lavalink is listening to. This must be a number!
-    pass: "your password",
-    secure: false, // Set this to true if the lavalink uses SSL or you're hosting lavalink on repl.it
+    host: "lavalink-replit.iirobotninjaii.repl.co",
+    port: 334,
+    port: 443,
+    pass: "maybeiwasboring", 
+    secure: true // Set this to true if you're self-hosting lavalink on replit.
   },
 
   //Please go to https://developer.spotify.com/dashboard/
