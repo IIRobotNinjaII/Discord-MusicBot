@@ -113,10 +113,10 @@ class DiscordMusicBot extends Client {
       {
         clientID: this.botconfig.Spotify.ClientID,
         clientSecret: this.botconfig.Spotify.ClientSecret,
-        playlistLoadLimit: 3,
-        audioOnlyResults: true,
+        playlistPageLoadLimit: 3,
+        filterAudioOnlyResult: true,
         autoResolve: true,
-        useSpotifyMetadata: true
+        useSpotifyMetadata: true,
       },
       [
         {
@@ -166,7 +166,7 @@ class DiscordMusicBot extends Client {
             })}\``,
             true
           )
-          .setColor("RANDOM");
+          .setColor(this.botconfig.EmbedColor);
         //.setFooter("Started playing at");
         let NowPlaying = await client.channels.cache
           .get(player.textChannel)
@@ -176,7 +176,7 @@ class DiscordMusicBot extends Client {
       .on("queueEnd", (player) => {
         let QueueEmbed = new MessageEmbed()
           .setAuthor("The queue has ended", this.botconfig.IconURL)
-          .setColor("RANDOM")
+          .setColor(this.botconfig.EmbedColor)
           .setTimestamp();
         client.channels.cache.get(player.textChannel).send(QueueEmbed);
         if (!this.botconfig["24/7"]) player.destroy();
@@ -241,15 +241,19 @@ class DiscordMusicBot extends Client {
   }
 
   sendTime(Channel, Error) {
-    let embed = new MessageEmbed().setColor("RANDOM").setDescription(Error);
+    let embed = new MessageEmbed()
+      .setColor(this.botconfig.EmbedColor)
+      .setDescription(Error);
 
     Channel.send(embed);
   }
 
   build() {
     this.login(this.botconfig.Token);
-    if(this.botconfig.ExpressServer){
-      this.http.listen(process.env.PORT || this.botconfig.Port, () => this.log("Web Server has been started"));
+    if (this.botconfig.ExpressServer) {
+      this.http.listen(process.env.PORT || this.botconfig.Port, () =>
+        this.log("Web Server has been started")
+      );
     }
   }
 
